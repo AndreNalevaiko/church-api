@@ -1,0 +1,10 @@
+# Ignore everything in this directory
+
+
+.venv/*
+.idea/*
+__pycache__/*
+__pycache__
+
+# Except this file
+!.gitignore

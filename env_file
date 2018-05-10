@@ -1,0 +1,2 @@
+SENDGRID_API_KEY=TESTE
+DATABASE_MYSQL=mysql+pymysql://church-api:church-api@localhost/church-api?charset=utf8mb4
