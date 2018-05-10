@@ -5,8 +5,6 @@ from flask_cors import CORS
 from flask_restless.manager import APIManager
 from church_api import config, db
 from church_api.api import person
-import fdb
-
 
 
 # def create_blueprints(flask_app):
