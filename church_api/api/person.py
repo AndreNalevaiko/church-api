@@ -71,7 +71,6 @@ def create_api(api):
     api.create_api(Person,
                    methods=['GET', 'POST', 'PATCH', 'DELETE'],
                    url_prefix='/%s' % API_VERSION,
-                   results_per_page=10,
                    primary_key='id',
                    preprocessors={
                        'POST': [before_post],
