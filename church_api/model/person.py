@@ -7,13 +7,15 @@ from church_api.helpers import input_audit_data_on_insert, input_audit_data_on_u
 
 
 class Person(ModelBase, db.Model):
-    name = db.Column(db.String(256), nullable=False)
-    phone = db.Column(db.String(256), nullable=True)
+    first_name = db.Column(db.String(256), nullable=False)
+    last_name = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(256), nullable=True)
     photo = db.Column(db.LargeBinary(), nullable=False)
-    active = db.Column(db.Boolean, nullable=True)
-    occupation = db.Column(db.String(256), nullable=False)
-    
+    church = db.Column(db.Boolean, nullable=True)
+    departure = db.Column(db.String(256), nullable=False)
+    last_presense_at = db.Column(db.DateTime(), nullable=True)
+    presences = db.Column(db.Integer(), nullable=False)
+    barcode = db.Column(db.Integer(), nullable=True)
     
 
 event.listen(Person, 'before_insert', input_audit_data_on_insert)
