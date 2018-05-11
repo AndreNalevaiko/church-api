@@ -1,5 +1,5 @@
 import logging
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response
 from flask_cors import cross_origin
 from datetime import datetime
 
@@ -9,8 +9,8 @@ from church_api.config import API_VERSION
 
 logger = logging.getLogger(__name__)
 
-actions = Blueprint('abstract_products', __name__,
-                    url_prefix='/abstract_products')
+actions = Blueprint('person', __name__,
+                    url_prefix='/person')
 
 @actions.route('/_add_presence', methods=['POST'])
 @cross_origin()
@@ -27,8 +27,27 @@ def _add_presence():
         db.session.commit()
 
 
+@actions.route('/_return_photo/<int:id>', methods=['GET'])
+@cross_origin()
+def _return_photo(id):
+    person = Person.query.get(id)
+    photo = person.photo
+
+    response = make_response(photo)
+    response.headers.set('Content-Type', 'image/png')
+    response.headers.set('Content-Disposition', 'attachment', filename='imagem.png')
+    return response
+
+
 def before_post(data=None, **kw):
     data['presences'] = 0
+
+    my_str_as_bytes = str.encode(data['photo'])
+    type(my_str_as_bytes) # ensure it is byte representation
+    my_decoded_str = my_str_as_bytes.decode()
+    type(my_decoded_str)
+
+    data['photo'] = my_str_as_bytes
         
 
 def create_api(api):

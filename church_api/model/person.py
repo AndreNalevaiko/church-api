@@ -11,7 +11,7 @@ class Person(ModelBase, db.Model):
     last_name = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(256), nullable=True)
     photo = db.Column(db.LargeBinary(), nullable=False)
-    church = db.Column(db.Boolean, nullable=True)
+    church = db.Column(db.String(256), nullable=True)
     departure = db.Column(db.String(256), nullable=False)
     last_presense_at = db.Column(db.DateTime(), nullable=True)
     presences = db.Column(db.Integer(), nullable=False)
