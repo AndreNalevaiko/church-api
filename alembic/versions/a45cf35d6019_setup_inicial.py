@@ -39,7 +39,7 @@ def schema_upgrades():
                     sa.Column('departure', sa.String(length=128), nullable=True),
                     sa.Column('last_presense_at', sa.DateTime, nullable=True),
                     sa.Column('presences', sa.Integer, nullable=False),
-                    sa.Column('barcode', sa.Integer, nullable=True),
+                    sa.Column('barcode', sa.String(256), nullable=True),
                     sa.Column('created_at', sa.DateTime, nullable=False),
                     sa.Column('updated_at', sa.DateTime, nullable=True))
 

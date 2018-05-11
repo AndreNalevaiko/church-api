@@ -15,7 +15,7 @@ class Person(ModelBase, db.Model):
     departure = db.Column(db.String(256), nullable=False)
     last_presense_at = db.Column(db.DateTime(), nullable=True)
     presences = db.Column(db.Integer(), nullable=False)
-    barcode = db.Column(db.Integer(), nullable=True)
+    barcode = db.Column(db.String(256), nullable=True)
     
 
 event.listen(Person, 'before_insert', input_audit_data_on_insert)

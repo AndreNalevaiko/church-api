@@ -42,22 +42,36 @@ def _return_photo(id):
 def before_post(data=None, **kw):
     data['presences'] = 0
 
-    my_str_as_bytes = str.encode(data['photo'])
-    type(my_str_as_bytes) # ensure it is byte representation
-    my_decoded_str = my_str_as_bytes.decode()
-    type(my_decoded_str)
+    if data.get('photo'):
+        my_str_as_bytes = str.encode(data['photo'])
+        type(my_str_as_bytes) # ensure it is byte representation
+        my_decoded_str = my_str_as_bytes.decode()
+        type(my_decoded_str)
 
-    data['photo'] = my_str_as_bytes
+        data['photo'] = my_str_as_bytes
+
+
+def before_patch(instance_id=None, data=None, **kw):
+    data['presences'] = 0
+
+    if data.get('photo'):
+        my_str_as_bytes = str.encode(data['photo'])
+        type(my_str_as_bytes) # ensure it is byte representation
+        my_decoded_str = my_str_as_bytes.decode()
+        type(my_decoded_str)
+
+        data['photo'] = my_str_as_bytes
         
 
 def create_api(api):
     api.create_api(Person,
-                   methods=['GET', 'POST', 'PATCH'],
+                   methods=['GET', 'POST', 'PATCH', 'DELETE'],
                    url_prefix='/%s' % API_VERSION,
                    results_per_page=10,
                    primary_key='id',
                    preprocessors={
-                       'POST': [before_post]
+                       'POST': [before_post],
+                       'PATCH_SINGLE': [before_patch],
                    },
                    postprocessors={
                    })
