@@ -1,11 +1,12 @@
 import logging
-from flask import Blueprint, request, make_response
+from flask import Blueprint, request, make_response, jsonify
 from flask_cors import cross_origin
 from datetime import datetime
 
 from church_api import db
 from church_api.model import Person
 from church_api.config import API_VERSION
+from church_api.helpers import to_dict
 
 logger = logging.getLogger(__name__)
 
@@ -15,9 +16,10 @@ actions = Blueprint('person', __name__,
 @actions.route('/_add_presence', methods=['POST'])
 @cross_origin()
 def _add_presence():
+    # import ipdb; ipdb.set_trace()
     data = request.get_json()
 
-    person = Person.query.get(data['person_id'])
+    person = Person.query.filter_by(barcode=data['barcode']['barcode']).first()
 
     if not person.last_presense_at or person.last_presense_at.day < datetime.utcnow().day:
         person.presences =+ 1
@@ -25,6 +27,8 @@ def _add_presence():
 
         db.session.add(person)
         db.session.commit()
+
+    return jsonify(to_dict(person))
 
 
 @actions.route('/_return_photo/<int:id>', methods=['GET'])
