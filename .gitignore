@@ -5,6 +5,7 @@
 .idea/*
 __pycache__/*
 __pycache__
+fabfile.pyc
 
 # Except this file
 !.gitignore

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def create_api(api):
     api.create_api(Person,
-                   methods=['GET', 'POST'],
+                   methods=['GET', 'POST', 'PATCH'],
                    url_prefix='/%s' % API_VERSION,
                    results_per_page=10,
                    primary_key='id',
