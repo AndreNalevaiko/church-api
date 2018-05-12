@@ -2,10 +2,14 @@ FROM python:3.5
 
 MAINTAINER Andre Naleavaiko <andre@gorillascode.com>
 
-RUN mkdir -p /optilab-bi-api/logs
+ADD . /church-api
 
-WORKDIR /optilab-bi-api
+RUN mkdir -p /church-api/logs
+
+WORKDIR /church-api
 
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
+
+CMD ["gunicorn", "--config=gunicorn.py", "run:app"]
