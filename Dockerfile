@@ -8,6 +8,8 @@ RUN mkdir -p /church-api/logs
 
 WORKDIR /church-api
 
+RUN pip install --upgrade pip
+RUN pip install gunicorn eventlet
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
